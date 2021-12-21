@@ -1,8 +1,22 @@
-import './App.css';
 import Axios from "axios"
 import React, { Component } from "react";
-import "./App.css";
 const PATH = "https://jsonplaceholder.typicode.com/posts";
+
+//UnExpected Error Function
+Axios.interceptors.response.use(null, error => {
+  const expectedError = error.response
+      && error.response.status >= 400
+      && error.response.status < 500;
+
+  if (!expectedError){
+    console.log("Logging the error.. ", error);
+    alert("An unexpected error occurred..");
+    return Promise.reject(error);
+  }
+
+  return Promise.reject(error);
+});
+//------------------------------------------------------------------------------------
 
 class App extends Component {
   state = {
@@ -93,13 +107,10 @@ class App extends Component {
     catch (e) {
       if (e.response && e.response.status === 404)
         alert("This post has already been deleted!");
-      else alert("An unexpected error occurred..");
 
       this.setState({ posts: originalPosts});
     }
-
   };
-
 }
 
 export default App;
