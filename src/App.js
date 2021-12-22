@@ -4,8 +4,6 @@ import {  ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"
 import config from "./config.json"
 
-
-
 class App extends Component {
   state = {
     posts: []
@@ -88,7 +86,7 @@ class App extends Component {
     const index = postsArray.indexOf(post);
     postsArray[index] = { ...post };
     this.setState({posts: postsArray});
-    // await Axios.put(config.path + "/" + post.id, post);
+    // await http.put(config.path + "/" + post.id, post);
     await http.patch(config.path + "/" + post.id);
 
   };
