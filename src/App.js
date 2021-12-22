@@ -21,12 +21,15 @@ class App extends Component {
 
     return (
         <React.Fragment>
+
           <ToastContainer />
+
           <button className="btn btn-outline-info btn-group-lg"
                   onClick={this.handleAdd}
           >
             Add
           </button>
+
           <table className="table">
             <thead>
             <tr>
@@ -51,17 +54,20 @@ class App extends Component {
                     </button>
                   </td>
                   <td>
+
                     <button
                         className="btn btn-outline-danger btn-sm"
                         onClick={() => this.handleDelete(post)}
                     >
                       Delete
                     </button>
+
                   </td>
                 </tr>
             ))}
             </tbody>
           </table>
+
         </React.Fragment>
     );
   }
