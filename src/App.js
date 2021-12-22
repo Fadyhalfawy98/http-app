@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import http from "./services/httpServices"
-const PATH = "https://jsonplaceholder.typicode.com/posts";
+import config from "./config.json"
 
 
 
@@ -10,7 +10,7 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const { data: posts } = await http.get(PATH);
+    const { data: posts } = await http.get(config.path);
     this.setState({ posts });
   }
 
@@ -66,7 +66,7 @@ class App extends Component {
   handleAdd = async () => {
     const { posts } = this.state;
     const object =  {title: "new post", body: "np"};
-    const { data: post } = await http.post(PATH, object);
+    const { data: post } = await http.post(config.path, object);
     const postsArray = [post, ...posts]
     this.setState({ posts: postsArray});
 
@@ -79,8 +79,8 @@ class App extends Component {
     const index = postsArray.indexOf(post);
     postsArray[index] = { ...post };
     this.setState({posts: postsArray});
-    // await Axios.put(PATH + "/" + post.id, post);
-    await http.patch(PATH + "/" + post.id);
+    // await Axios.put(config.path + "/" + post.id, post);
+    await http.patch(config.path + "/" + post.id);
 
   };
 
@@ -89,7 +89,7 @@ class App extends Component {
     const originalPosts = posts;
     const postsFiltered = posts.filter(p => p.id !== post.id);
     this.setState({ posts: postsFiltered });
-    try { await http.delete(PATH + "/" + post.id); }
+    try { await http.delete(config.path + "/" + post.id); }
     catch (e) {
       if (e.response && e.response.status === 404)
         alert("This post has already been deleted!");
