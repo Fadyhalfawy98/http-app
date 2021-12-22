@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import http from "./services/httpServices"
+import {  ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 import config from "./config.json"
 
 
@@ -19,6 +21,7 @@ class App extends Component {
 
     return (
         <React.Fragment>
+          <ToastContainer />
           <button className="btn btn-outline-info btn-group-lg"
                   onClick={this.handleAdd}
           >
@@ -89,7 +92,7 @@ class App extends Component {
     const originalPosts = posts;
     const postsFiltered = posts.filter(p => p.id !== post.id);
     this.setState({ posts: postsFiltered });
-    try { await http.delete(config.path + "/" + post.id); }
+    try { await http.delete("s" + config.path + "/" + post.id); }
     catch (e) {
       if (e.response && e.response.status === 404)
         alert("This post has already been deleted!");
